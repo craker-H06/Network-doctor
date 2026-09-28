@@ -1,0 +1,13 @@
+name: network-doctor
+
+services:
+  api:
+    build: .
+    image: network-doctor:0.1.0
+    ports:
+      - "127.0.0.1:8000:8000"
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_RAW
+    restart: unless-stopped

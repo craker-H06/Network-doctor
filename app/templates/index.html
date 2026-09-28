@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Network Doctor — Console de laboratoire</title>
+    <link rel="stylesheet" href="/static/lab.css?v=4">
+  </head>
+  <body>
+    <div class="shell">
+      <header class="top">
+        <div class="brand">
+          <span class="mark" aria-hidden="true">ND</span>
+          <div>
+            <p class="kicker">Laboratoire réseau · banc de contrôle</p>
+            <h1>Network Doctor</h1>
+          </div>
+        </div>
+        <div class="top-status">
+          <time id="clock">--:--:--</time>
+          <p id="link-state" data-state="unknown">Liaison API</p>
+        </div>
+      </header>
+
+      <p class="banner">Une cible explicite. Réseaux autorisés seulement. Mesure ICMP bornée.</p>
+
+      <main class="board">
+        <div class="bench">
+          <section class="panel" aria-labelledby="scope-title">
+            <header class="panel-head">
+              <h2 id="scope-title">Périmètre</h2>
+              <span class="led" aria-hidden="true"></span>
+            </header>
+            <ul id="scope-list" class="scope-list"></ul>
+            <p id="public-state" class="scope-note">Chargement du périmètre…</p>
+          </section>
+
+          <section class="panel" aria-labelledby="check-title">
+            <header class="panel-head">
+              <h2 id="check-title">Contrôle</h2>
+              <span class="led" aria-hidden="true"></span>
+            </header>
+            <form id="check-form">
+              <label for="target">Hôte</label>
+              <input
+                id="target"
+                name="target"
+                maxlength="253"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="192.168.1.10"
+                required
+              >
+              <p class="field-hint">Adresse IP ou nom d'une machine du laboratoire.</p>
+
+              <label for="count">Paquets ICMP</label>
+              <select id="count" name="count"></select>
+
+              <button id="run" type="submit">Lancer le contrôle</button>
+            </form>
+          </section>
+        </div>
+
+        <section class="panel report" aria-labelledby="report-title">
+          <header class="panel-head">
+            <h2 id="report-title">Compte rendu</h2>
+            <span class="led" aria-hidden="true"></span>
+          </header>
+          <p id="verdict" class="verdict" data-state="idle" role="status">En attente</p>
+          <p id="detail" class="detail">Nommez un hôte du périmètre, puis lancez le contrôle.</p>
+
+          <dl class="metrics">
+            <div>
+              <dt>Cible</dt>
+              <dd id="out-target">—</dd>
+            </div>
+            <div>
+              <dt>Adresse retenue</dt>
+              <dd id="out-ip">—</dd>
+            </div>
+            <div>
+              <dt>Émis</dt>
+              <dd id="out-sent">—</dd>
+            </div>
+            <div>
+              <dt>Reçus</dt>
+              <dd id="out-received">—</dd>
+            </div>
+            <div class="latency">
+              <dt>Latence</dt>
+              <dd id="out-latency">—</dd>
+              <div class="meter" aria-hidden="true"><span id="latency-meter"></span></div>
+            </div>
+          </dl>
+
+          <div class="journal-wrap">
+            <h3>Journal de séance</h3>
+            <ol id="journal" aria-live="polite"></ol>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="/static/lab.js"></script>
+  </body>
+</html>
